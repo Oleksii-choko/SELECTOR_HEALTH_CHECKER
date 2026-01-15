@@ -4,7 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "check": "node src/index.js --config selectors.json",
+    "check:headed": "HEADLESS=false node src/index.js --config selectors.json",
+    "lint": "node -c src/index.js",
+    "test": "node --test"
   },
   "keywords": [],
   "author": "",

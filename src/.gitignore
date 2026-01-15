@@ -1,0 +1,16 @@
+node_modules/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.env
+.env.*.local
+output/
+reports/
+*.csv
+*.json
+playwright-report/
+test-results/
+.cache/
+.DS_Store
+.vscode/
