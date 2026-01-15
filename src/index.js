@@ -46,7 +46,14 @@ try {
   console.log(`- total checks: ${report.summary.total}`);
   console.log(`- broken: ${report.summary.broken}`);
   console.log(`- report.json: ${report.reportJsonPath}`);
+  console.log(`- report.csv: ${report.reportCsvPath}`);
 
+  if (report.brokenPreview.length > 0) {
+    console.log("Broken preview (up to 5):");
+    for (const it of report.brokenPreview) {
+      console.log(`- [${it.status}] ${it.job} ${it.selectorName} (${it.selector})`);
+    }
+  }
   process.exitCode = report.summary.broken > 0 ? 1 : 0;
 } catch (e) {
   console.error(e?.message ?? e);
