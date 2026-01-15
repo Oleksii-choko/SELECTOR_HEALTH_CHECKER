@@ -1,7 +1,9 @@
+import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { loadEnv } from "./lib/env.js";
 import { loadConfig, summarizeConfig } from "./config.js";
+import { runChecks } from "./runner.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -16,8 +18,14 @@ function getArgValue(flag, defaultValue = null) {
 try {
   const env = loadEnv();
 
-  const configPath = getArgValue("--config", path.join(__dirname, "..", "selectors.json"));
-  const outDir = getArgValue("--out", path.join(__dirname, "..", env.OUTPUT_DIR));
+  const configPath = getArgValue(
+    "--config",
+    path.join(__dirname, "..", "selectors.json")
+  );
+  const outDir = getArgValue(
+    "--out",
+    path.join(__dirname, "..", env.OUTPUT_DIR)
+  );
 
   const cfg = loadConfig(configPath);
   const summary = summarizeConfig(cfg);
@@ -30,6 +38,16 @@ try {
   console.log(`- concurrency: ${env.CONCURRENCY}`);
   console.log(`- outDir: ${outDir}`);
 
+  fs.mkdirSync(outDir, { recursive: true });
+
+  const report = await runChecks({ config: cfg, outDir, env });
+
+  console.log("Report:");
+  console.log(`- total checks: ${report.summary.total}`);
+  console.log(`- broken: ${report.summary.broken}`);
+  console.log(`- report.json: ${report.reportJsonPath}`);
+
+  process.exitCode = report.summary.broken > 0 ? 1 : 0;
 } catch (e) {
   console.error(e?.message ?? e);
   process.exitCode = 1;

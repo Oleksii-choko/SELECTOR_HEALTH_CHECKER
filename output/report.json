@@ -1,0 +1,20 @@
+{
+  "generatedAt": "2026-01-15T13:18:34.804Z",
+  "summary": {
+    "total": 1,
+    "broken": 0
+  },
+  "items": [
+    {
+      "job": "Example",
+      "url": "https://example.com",
+      "selectorName": "Heading",
+      "selector": "h1",
+      "mustBeVisible": true,
+      "status": "ok",
+      "navMs": 104,
+      "checkMs": 59,
+      "error": null
+    }
+  ]
+}
