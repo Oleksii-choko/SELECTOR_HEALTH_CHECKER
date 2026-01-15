@@ -1,2 +1,2 @@
 job,url,selectorName,selector,mustBeVisible,status,navMs,checkMs,error
-Example,https://example.com,Heading,h1,true,ok,111,41,
+Example,https://example.com,Heading,h1,true,ok,76,27,

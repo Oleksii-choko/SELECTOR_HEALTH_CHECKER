@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-01-15T13:32:33.438Z",
+  "generatedAt": "2026-01-15T13:43:35.809Z",
   "summary": {
     "total": 1,
     "broken": 0
@@ -12,8 +12,8 @@
       "selector": "h1",
       "mustBeVisible": true,
       "status": "ok",
-      "navMs": 111,
-      "checkMs": 41,
+      "navMs": 76,
+      "checkMs": 27,
       "error": null
     }
   ]
