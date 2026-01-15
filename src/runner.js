@@ -2,17 +2,18 @@ import fs from "node:fs";
 import path from "node:path";
 import { checkJob } from "./checks/checkPage.js";
 import { writeJsonReport, writeCsvReport } from "./lib/report.js";
+import { withConcurrencyLimit } from "./lib/concurrency.js";
 
 export async function runChecks({ config, outDir, env }) {
   fs.mkdirSync(outDir, { recursive: true });
 
   const jobs = config.jobs ?? [];
 
-  const results = [];
-  for (const job of jobs) {
-    const r = await checkJob(job, { env });
-    results.push(r);
-  }
+  const limit = withConcurrencyLimit(env.CONCURRENCY);
+
+  const results = await Promise.all(
+    jobs.map((job) => limit(() => checkJob(job, { env })))
+  );
 
   const items = results.flatMap((r) => r.items);
   const brokenItems = items.filter((x) => x.status !== "ok");
@@ -37,7 +38,6 @@ export async function runChecks({ config, outDir, env }) {
     summary: report.summary,
     reportJsonPath,
     reportCsvPath,
-    // зручно для summary в консолі
     brokenPreview: brokenItems.slice(0, 5)
   };
 }
