@@ -1,0 +1,12 @@
+{
+    "jobs": [
+      {
+        "name": "Example",
+        "url": "https://example.com",
+        "selectors": [
+          { "name": "Heading", "selector": "h1", "mustBeVisible": true },
+          { "name": "Nonexistent", "selector": ".does-not-exist", "mustBeVisible": false }
+        ]
+      }
+    ]
+  }
