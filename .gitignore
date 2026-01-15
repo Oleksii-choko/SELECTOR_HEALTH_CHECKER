@@ -13,4 +13,4 @@ playwright-report/
 test-results/
 .cache/
 .DS_Store
-.vscode/
+.vscode/node_modules/
